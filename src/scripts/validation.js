@@ -83,4 +83,4 @@ function enableValidation(config) {
   });
 }
 
-enableValidation(settings);
+export { enableValidation, settings, resetValidation, disableButton };

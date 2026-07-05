@@ -1,3 +1,11 @@
+import {
+  enableValidation,
+  settings,
+  resetValidation,
+  disableButton,
+} from "../scripts/validation.js";
+import "./index.css";
+
 const initialCards = [
   {
     name: "Val Thorens",
@@ -90,22 +98,19 @@ function getCardElement(data) {
 }
 
 function handleEscape(evt) {
-  console.log(evt.key);
   if (evt.key === "Escape") {
     closeModal(currentOpenModal);
   }
 }
-
+let currentOpenModal;
 function openModal(modal) {
   modal.classList.add("modal_is-opened");
   currentOpenModal = modal;
-  console.log(currentOpenModal);
   document.addEventListener("keydown", handleEscape);
 }
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
   currentOpenModal = null;
-  console.log(currentOpenModal);
   document.removeEventListener("keydown", handleEscape);
 }
 
@@ -157,3 +162,5 @@ initialCards.forEach(function (card) {
   const cardElement = getCardElement(card);
   cardsList.prepend(cardElement);
 });
+
+enableValidation(settings);
