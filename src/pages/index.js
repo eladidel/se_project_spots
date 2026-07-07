@@ -5,7 +5,7 @@ import {
   disableButton,
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
-import setButtonText from "../utils/healper.js";
+import setButtonText from "../utils/helper.js";
 import "./index.css";
 
 //Api
@@ -23,11 +23,10 @@ api
     cards.forEach((card) => {
       const cardElement = getCardElement(card);
       cardsList.append(cardElement);
-
-      profileName.textContent = user.name;
-      profileDescription.textContent = user.about;
-      profileAvatar.src = user.avatar;
     });
+    profileName.textContent = user.name;
+    profileDescription.textContent = user.about;
+    profileAvatar.src = user.avatar;
   })
   .catch((err) => console.log(err));
 
@@ -47,7 +46,6 @@ const inputDescription = editProfileModal.querySelector(
   "#profile-description-input",
 );
 const saveProfileForm = editProfileModal.querySelector("#profile-form");
-const profileSaveButton = editProfileModal.querySelector(".modal__button");
 
 // Avatar
 const avatarBtn = document.querySelector(".profile__avatar-btn");
@@ -80,7 +78,6 @@ const modalCaption = previewModal.querySelector(".modal__caption");
 
 // General
 const closePreviewBtn = previewModal.querySelector(".modal__close-button");
-const cardSaveButton = savePostForm.querySelector(".modal__button");
 const modals = document.querySelectorAll(".modal");
 
 let selectedCard;
@@ -97,11 +94,12 @@ function handleAvatarFormSubmit(evt) {
     .editAvatar({ avatar: avatarInput.value })
     .then((data) => {
       profileAvatar.src = data.avatar;
+      closeModal(avatarModal);
+      evt.target.reset();
+      disableButton(submitbutton, settings);
     })
     .catch(console.error)
     .finally(() => {
-      evt.target.reset();
-      closeModal(avatarModal);
       setButtonText(submitbutton, false);
     });
 }
@@ -132,7 +130,6 @@ function handleDeleteSubmit(evt) {
     })
     .catch(console.error)
     .finally(() => {
-      closeModal(deleteModal);
       setButtonText(submitbutton, false, "Delete", "Deleting...");
     });
 }
@@ -203,11 +200,11 @@ function handleProfileFormSubmit(evt) {
     .then((data) => {
       profileName.textContent = data.name;
       profileDescription.textContent = data.about;
+      closeModal(editProfileModal);
+      disableButton(submitbutton, settings);
     })
     .catch(console.error)
     .finally(() => {
-      closeModal(editProfileModal);
-      disableButton(profileSaveButton, settings);
       setButtonText(submitbutton, false);
     });
 }
@@ -223,12 +220,12 @@ function handlePostFormSubmit(evt) {
     .then((data) => {
       const cardElement = getCardElement(data);
       cardsList.prepend(cardElement);
+      closeModal(addNewPostModal);
+      evt.target.reset();
+      disableButton(submitbutton, settings);
     })
     .catch(console.error)
     .finally(() => {
-      closeModal(addNewPostModal);
-      evt.target.reset();
-      disableButton(cardSaveButton, settings);
       setButtonText(submitbutton, false);
     });
 }
