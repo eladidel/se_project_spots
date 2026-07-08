@@ -15,5 +15,5 @@
 
 ## The link to the project pitch video
 
-- Click [here](https://www.loom.com/share/cd462ff303b14ad0bca3fe2ea8b44973).
+- Click [here](https://www.loom.com/share/fd8a83e67bfe4959a2eb2f10237fcc6a).
 - I posted the link from loom, I can't download the video, they want me to pay.
